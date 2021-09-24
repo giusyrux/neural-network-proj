@@ -21,6 +21,8 @@ function layers = forwardProp(layers, input)
                z = softmax(a);
            case "relu" && i ~= lenght(layers)
                z = relu(a);
+           case "hv" && i ~= lenght(layers)
+               z = hv(a);
        end
        
        layers(i).a = a;

@@ -1,4 +1,4 @@
-function []=backProp(layers,gradOutput,x)
+function layers = backProp(layers,gradOutput,x)
 
     for i=length(layers):-1:1
         
@@ -16,9 +16,10 @@ function []=backProp(layers,gradOutput,x)
        end
        
        if i==1
-           layers(i).gradient = layers(i).gradient + delta * (x)';
+           layers(i).gradient.W = layers(i).gradient + delta * (x)';
        else
-           layers(i).gradient = layers(i).gradient + delta * (layers(i-1).z)';
+           layers(i).gradient.W = layers(i).gradient + delta * (layers(i-1).z)';
        end
+       layers(i).gradient.B = sum(gradOutput);
     end
 end

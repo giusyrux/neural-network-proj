@@ -13,6 +13,8 @@ function [output] = derivFunction(act,a,x)
             else 
                 output = 0;
             end
+        case("hv")
+           output=0;
         %case("softmax")
     end
 
