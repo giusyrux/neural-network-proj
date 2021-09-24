@@ -1,16 +1,19 @@
-function [output] = derivFunction(activation,a)
-switch(activation)
-    case("sigmoid")
-        output = a .*(1-a);
-    case("relu")
-        if a>0
-            output = 1;
-        else 
-            output = 0;
-        end
-    %case("softmax")
+function [output] = derivFunction(act,a,x)
+%derivate delle varie funzioni di attivazione
+    
+    switch(act)
         
-end
+        case("identity")
+            output = ones(size(x));
+        case("sigmoid")
+            output = a .*(1-a);
+        case("relu")
+            if a>0
+                output = 1;
+            else 
+                output = 0;
+            end
+        %case("softmax")
+    end
 
 end
-
