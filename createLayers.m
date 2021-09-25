@@ -5,7 +5,7 @@ function [layers]=createLayers(params, inputSize, outputSize)
 %outputSize = numero nodi dello strato di output pari al numero di classi
 
     neurons = params.neurons; %array di lunghezza = n strati e ogni cella contiene numero di neuroni
-    nLayers = length(neurons);
+    nLayers = params.nLayers;
     layers = repmat(struct('W', zeros(0)), 1, nLayers); %uno strato sarà una struct con i suoi campi
 
     %inizializzo il parametro size per ogni strato per determinare le
