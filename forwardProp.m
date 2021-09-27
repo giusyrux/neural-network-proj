@@ -1,4 +1,4 @@
-function layers = forwardProp(layers,input)
+function layers = forwardProp(layers,input,softmax)
 %forward propagation per aggiornare i valori
 %layers: struct contenente i vari strati della rete
 %input: input del primo strato
@@ -29,4 +29,5 @@ function layers = forwardProp(layers,input)
        layers(i).a = a;
        layers(i).z = z;
     end
+
 end

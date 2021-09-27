@@ -29,6 +29,7 @@ function layers = createLayers(params,inputSize,outputSize)
         layers(i).act = params.act(i); %funzione di attivazione per ogni strato
         layers(i).W = randn(layers(i).size(2),layers(i).size(1)); %matrice pesi
         layers(i).B = zeros(layers(i).size(2),1); %vettore di bias
-        layers(i).gradient = zeros(layers(i).size(2),layers(i).size(1)); %matrice del gradiente
+        layers(i).gradient.W = zeros(layers(i).size(2),layers(i).size(1)); %matrice del gradiente
+        layers(i).gradient.B = zeros(layers(i).size(2),1); %matrice gradiente bias
     end
 end

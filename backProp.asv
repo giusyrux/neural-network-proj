@@ -27,8 +27,7 @@ function layers = backProp(layers,gradOutput,x)
            layers(i).gradient.W = layers(i).gradient.W + delta * (layers(i-1).z)';
        end
        
-       layers(i).gradient.B = layers(i).gradient.B + sum(gradOutput); %calcolo del bias
-       % https://towardsdatascience.com/understanding-backpropagation-algorithm-7bb3aa2f95fd
+       layers(i).gradient.B = sum(gradOutput); %calcolo del bias
        
        layers(i).matrixSign = sign(layers(i).precGradient*layers(i).gradient.W); % calcolo del segno
     end
