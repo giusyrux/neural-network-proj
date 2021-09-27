@@ -1,35 +1,49 @@
-function [err, newNet, err_val]=train(net,X,T,X_val,T_val,loss,epochs)
-    err=zeros(1,epochs);
-    err_val=zeros(1,epochs);
-    y_val=predict(miaNet,X_val);
-    min_err=sumOfSquares(y_val,T_val);
-    newNet=net;
+function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,params)
+%fase di learning
+%ritorno la rete e l'errore per il train e per il validation set
+%net: la rete
+%XTrain, TTrain, XVal, TVal: set di train e validation
+%loss: funzione di errore
+%epochs: numero di epoche
+
+    %inizializzo gli errori
+    err = zeros(1,epochs);
+    errVal = zeros(1,epochs);
+    
+    %predico l'output e valuto l'errore di predizione
+    yVal = predict(net,XVal,params.softmax);
+    minErr = sumOfSquares(yVal,TVal);
+    newNet = net;
 
     for epoch=1:epochs
-        net.layers = forwardProp(net.layers,X);
-        net.layers = backProp(net.layers,gradOutput);
+        
+        net.layers = forwardProp(net.layers,XTrain); %aggiorno valori
+        net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
         % RPROP
-        gradOutput = computeCost(y,T,params.cost);
+        gradOutput = computeCost(y,TTrain,params.cost,params.softmax); %calcolo derivata errore
         
-        y=predict(net,X,params.softmax);
-        y_val=predict(net,X_val,params.softmax);
+        %predico l'output
+        y = predict(net,XTrain,params);
+        yVal = predict(net,XVal,params);
         
-        if loss=="ce"
-            err(epoch)=crossEntropy(y,T);
-            err_val(epoch)=crossEntropy(y_val,T_val);
+        %calcolo l'errore di predizione
+        if loss == "ce"
+            
+            err(epoch) = crossEntropy(y,TTrain);
+            errVal(epoch) = crossEntropy(yVal,TVal);
         else
-            if loss=="mse"
-                err(epoch)=sumOfSquares(y,T);
-                err_val(epoch)=sumOfSquares(y_val,T_val);
-            end
+            
+            err(epoch) = sumOfSquares(y,TTrain);
+            errVal(epoch) = sumOfSquares(yVal,TVal);
         end
-        disp(['err train:' num2str(err(epoch)) ' err val:' num2str(err_val(epoch))]);
         
-        if err_val(epoch)< min_err
-            min_err=err_val(epoch);
-            newNet=net;
+        disp(['Errore di training: ' num2str(err(epoch)) ' Errore di validazione:' num2str(errVal(epoch))]);
+        
+        %trovo l'epoca in cui l'errore è minimo -QUA POSSO METTERE EARLY ST
+        if errVal(epoch)< minErr
+            
+            minErr = errVal(epoch);
+            newNet = net; %salvo la rete con errore minimo
         end
     end
-    
-   
 end
