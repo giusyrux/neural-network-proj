@@ -1,3 +1,5 @@
-function z=relu(y)
-    z=max(0,y);
+function z = relu(a)
+%calcolo output strato interno (y=f(a)) con relu come funzione di attivazione
+    
+    z = max(0,a);
 end
