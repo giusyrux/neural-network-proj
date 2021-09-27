@@ -1,4 +1,4 @@
-function output = derivFunction(act,a,x)
+function output = derivFunction(act,a)
 %derivate delle varie funzioni di attivazione
 %a: valore a cui applicare la funzione di attivazione
 %x: input della rete
@@ -6,7 +6,7 @@ function output = derivFunction(act,a,x)
     switch(act)
         
         case("identity")
-            output = ones(size(x));
+            output = ones(size(a));
         case("sigmoide")
             output = a.*(1-a);
         case("relu")

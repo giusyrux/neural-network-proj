@@ -11,21 +11,23 @@ function layers = forwardProp(layers,input,softmax)
        B = layers(i).B; %inizializzo i bias
        act = layers(i).act; %inizializzo le funzioni di attivazione
        a = W*z+B; % calcolo della a per poi calcolare z = f(a)
-      
-       switch (act)
-           
-            case "identity" %la uso per lo strato di output poichè è lineare
-               z = identity(a);
-           case "sigmoid" && i ~= lenght(layers)
-               z = sigmoide(a);
-           case "softmax" && i ~= lenght(layers)
-               z = softmax(a);
-           case "relu" && i ~= lenght(layers)
-               z = relu(a);
-           case "hv" && i ~= lenght(layers)
-               z = hv(a);
+       if i < length(layers)
+           switch (act)
+
+               case "identity" %la uso per lo strato di output poichè è lineare
+                   z = identity(a);
+               case "sigmoid"
+                   z = sigmoide(a);
+               case "softmax" 
+                   z = softmax(a);
+               case "relu" 
+                   z = relu(a);
+               case "hv" 
+                   z = hv(a);
+           end
+       else
+           z = identity(a);
        end
-       
        layers(i).a = a;
        layers(i).z = z;
     end

@@ -25,7 +25,7 @@ TTest = T(:,offset+1:end);
 
 %creo la rete net
 net = createNet(params,size(XTrain,1),size(TTrain,1));
-[err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,params.loss,params.epochs,params.softmax);
+[err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,params.cost,params.epochs,params.softmax);
 disp(TTest(:,1));
 y = predict(newNet,XTest(:,1),params.softmax);
 disp(y);

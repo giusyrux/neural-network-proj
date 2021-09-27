@@ -19,7 +19,7 @@ function layers = createLayers(params,inputSize,outputSize)
             
             layers(i).size = [neurons(i-1), neurons(i)];
         end	
-        layers(nLayers).size = [neurons(end), outputSize];
+        layers(nLayers).size = [neurons(nLayers-1), outputSize];
 
     end
 

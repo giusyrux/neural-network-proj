@@ -16,8 +16,9 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,s
     newNet = net;
 
     for epoch=1:epochs
-        
+      
         net.layers = forwardProp(net.layers,XTrain,softmax); %aggiorno valori
+        y = net.layers(size(net.layers,2)).z;
         gradOutput = computeCost(y,TTrain,loss,softmax); %calcolo derivata errore
         net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
         net.layers = rprop(net.layers,epoch);

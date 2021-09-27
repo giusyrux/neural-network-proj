@@ -1,10 +1,10 @@
-function gradOutput = computeCost(y,t,costFunc,softmax)
+function gradOutput = computeCost(y,t,costFunc,hassoftmax)
 %calcolo della derivata della funzione di errore con/senza softmax
 %y: output della rete
 %t: label del DS
 %softmax: booleano
 
-    if ~softmax
+    if ~hassoftmax
         
         switch(costFunc)
             

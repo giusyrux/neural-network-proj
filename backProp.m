@@ -10,13 +10,13 @@ function layers = backProp(layers,gradOutput,x)
            
            %caso output: derivata funzione identità e prodotto element-wise
            %con derivata della funzione di errore (gradOutput)
-           delta = derivFunction(layers(i).act,layers(i).a,x) .* gradOutput;
+           delta = derivFunction(layers(i).act,layers(i).a) .* gradOutput;
        
        else
            
            %caso hidden
            delta = layers(i).W' * delta;
-           delta = delta * derivFunction(layers(i).act,layers(i).a,x);
+           delta = delta * derivFunction(layers(i).act,layers(i).a);
        end
        
        layers(i).precGradient = layers(i).gradient.W;
@@ -30,6 +30,6 @@ function layers = backProp(layers,gradOutput,x)
        layers(i).gradient.B = layers(i).gradient.B + sum(gradOutput); %calcolo del bias
        % https://towardsdatascience.com/understanding-backpropagation-algorithm-7bb3aa2f95fd
        
-       layers(i).matrixSign = sign(layers(i).precGradient*layers(i).gradient.W); % calcolo del segno
+       layers(i).matrixSign = sign(layers(i).precGradient.*layers(i).gradient.W); % calcolo del segno
     end
 end

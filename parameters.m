@@ -3,11 +3,11 @@
 prompt = "Digitare nome della rete: ";
 params.name = input(prompt,'s');
 
-params.neurons = [10 5 6]; %neuroni per ogni strato
+params.neurons = [128 64 10]; %neuroni per ogni strato
 
 params.nLayers = size(params.neurons,2); %numero strati
 
-params.act = [ "relu" "relu" "identity" "sigmoide" "softmax" "hv" ]; %funzioni di attivazione
+params.act = [ "relu" "relu" "identity" ]; %funzioni di attivazione
 
 params.softmax = 1; % valore booleano per capire se applicare softmax
 
