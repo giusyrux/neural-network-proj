@@ -1,5 +1,5 @@
-% realizza la sigmoide
-function y=sigmoide(x)
-    y= 1./ (1+exp(-x));
-    % divisione per ogni valore di x
+function z = sigmoide(a)
+%calcolo output strato interno (z=f(a)) con sigmoide come funzione di attivazione
+
+    z = 1./(1+exp(-a));
 end
