@@ -1,8 +1,13 @@
-function Y = predict(net,X)
-    net.layers = forwardProp(net.layers,X);
+function y = predict(net,x,softmax)
+%predico l'output della rete
+%net: la rete
+%x: input della rete
+
+    net.layers = forwardProp(net.layers,x); %aggiorno i parametri
     
-    if params.softmax
-        Y = softmax(net.layers(end).z);
+    if softmax %valuto params per capire se applicare softmax
+        
+        y = softmax(net.layers(end).z); %softmax all'output della rete
     end
 end
 
