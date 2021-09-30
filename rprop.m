@@ -12,7 +12,7 @@ etaP = 1.2;
 etaN = 0.5;
 % 0<etaN<1 per decrementare delta(i,j)
 
-deltaMax = 50;%50;
+deltaMax = 50;
 deltaMin = 10^(-6);%10^(-6);
 
 if epochs==1
@@ -20,7 +20,6 @@ if epochs==1
     % aggiornare i pesi oppure applicare la discesa del gradiente standard
 else
     for i=1:length(layers)
-        
         % prodotto positivo
         layers(i).D(layers(i).matrixSign>0)=layers(i).D(layers(i).matrixSign>0).*etaP;
         min(layers(i).D(layers(i).matrixSign>0),deltaMax);
@@ -31,7 +30,7 @@ else
         
         % aggiornamento dei pesi
         layers(i).W=layers(i).W-sign(layers(i).gradient.W).*layers(i).D;
-        layers(i).B = layers(i).B + layers(i).gradient.B;
+        %layers(i).B = layers(i).B + layers(i).gradient.B;
     end
 end
 end
