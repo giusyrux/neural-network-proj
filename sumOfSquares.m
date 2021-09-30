@@ -3,5 +3,5 @@ function err = sumOfSquares(y,t)
 %y: output della rete
 %t: label del DS
 
-    err = (1/2)*sum(sum((y-t).^2));
+    err = 0.5*sum(sum((y-t).^2));
 end

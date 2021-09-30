@@ -7,6 +7,8 @@ function y = predict(net,x,hassoftmax)
     
     if hassoftmax %valuto params per capire se applicare softmax
         y = softmax(net.layers(size(net.layers,2)).z); %softmax all'output della rete
+    else
+       y = net.layers(size(net.layers,2)).z;
     end
 end
 

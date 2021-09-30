@@ -9,11 +9,11 @@ params.nLayers = size(params.neurons,2); %numero strati
 
 params.act = [ "relu" "relu" "identity" ]; %funzioni di attivazione
 
-params.softmax = 1; % valore booleano per capire se applicare softmax
+params.softmax = 0; % valore booleano per capire se applicare softmax
 
-params.epochs = 2; %numero di epoche
+params.epochs = 25; %numero di epoche
 
-params.cost = "ce"; %funzione di errore
+params.cost = "mse"; %funzione di errore
 
 %divisione DS in train set, test set e validation test
 

@@ -6,15 +6,13 @@ function output = derivFunction(act,a)
     switch(act)
         
         case("identity")
-            output = ones(size(a));
+            output = ones(size(a,1),size(a,2));
         case("sigmoide")
             output = a.*(1-a);
         case("relu")
-            if a>0
-                output = 1;
-            else 
-                output = 0;
-            end
+            output = a;
+            output(a>0)=1;
+            output(a<=0)=0;
         case("hv")
            output=0;
     end
