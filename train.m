@@ -1,4 +1,4 @@
-function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,softmax)
+function [err, net, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,softmax)
 %fase di learning
 %ritorno la rete e l'errore per il train e per il validation set
 %net: la rete
@@ -12,18 +12,18 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,s
     
     %predico l'output e valuto l'errore di predizione
     yVal = predict(net,XVal,softmax);
-    minErr = sumOfSquares(yVal,TVal);
+    minErr = crossEntropy(yVal,TVal);
     newNet = net;
 
     for epoch=1:epochs
       
-        net.layers = forwardProp(net.layers,XTrain,softmax); %aggiorno valori
+        net.layers = forwardProp(net.layers,XTrain,softmax); 
         y = net.layers(size(net.layers,2)).z;
         gradOutput = computeCost(y,TTrain,loss,softmax); %calcolo derivata errore
         net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
-        %net.layers = classicGradientDescent(net.layers);
-        net.layers = rprop(net.layers,epoch);
-        
+        net.layers = classicGradientDescent(net.layers);
+        %net.layers = rprop(net.layers,epoch);
+        %net.layers = clearValues(net.layers);
         %predico l'output
         y = predict(net,XTrain,softmax);
         yVal = predict(net,XVal,softmax);
@@ -43,7 +43,7 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,s
         
         %trovo l'epoca in cui l'errore è minimo -QUA POSSO METTERE EARLY ST
         if errVal(epoch)< minErr
-            
+            %disp('Sono entrato');
             minErr = errVal(epoch);
             newNet = net; %salvo la rete con errore minimo
         end

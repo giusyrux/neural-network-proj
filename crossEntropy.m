@@ -3,5 +3,5 @@ function err = crossEntropy(y,t)
 %y: output della rete
 %t: label del DS
 
-    err = -sum(sum(t .* log(y),1));
+    err = (-sum(sum(t .* log(y),2)));
 end

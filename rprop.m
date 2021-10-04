@@ -21,15 +21,16 @@ if epochs==1
 else
     for i=1:length(layers)
         % prodotto positivo
-        layers(i).D(layers(i).matrixSign>0)=layers(i).D(layers(i).matrixSign>0).*etaP;
-        min(layers(i).D(layers(i).matrixSign>0),deltaMax);
+        layers(i).D(layers(i).matrixSign>0)=layers(i).D(layers(i).matrixSign>0)*etaP;
+        layers(i).D(layers(i).matrixSign>0) = min(layers(i).D(layers(i).matrixSign>0),deltaMax); %non avevamo messo assegnazione
         
         % prodotto negativo
-        layers(i).D(layers(i).matrixSign<0)=layers(i).D(layers(i).matrixSign<0).*etaN;
-        max(layers(i).D(layers(i).matrixSign>0),deltaMin);
+        layers(i).D(layers(i).matrixSign<0) = layers(i).D(layers(i).matrixSign<0)*etaN;
+        layers(i).D(layers(i).matrixSign<0) = max(layers(i).D(layers(i).matrixSign<0),deltaMin); %non avevamo messo assegnazione
         
         % aggiornamento dei pesi
-        layers(i).W=layers(i).W-sign(layers(i).gradient.W).*layers(i).D;
+        g = sign(layers(i).gradient.W).*layers(i).D;
+        layers(i).W=layers(i).W-g;
         %layers(i).B = layers(i).B + layers(i).gradient.B;
     end
 end
