@@ -21,12 +21,14 @@ function [err, net, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,soft
         y = net.layers(size(net.layers,2)).z;
         gradOutput = computeCost(y,TTrain,loss,softmax); %calcolo derivata errore
         net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
-        net.layers = classicGradientDescent(net.layers);
-        %net.layers = rprop(net.layers,epoch);
-        %net.layers = clearValues(net.layers);
+        %net.layers = classicGradientDescent(net.layers);
+        net.layers = rprop(net.layers,epoch);
+        
         %predico l'output
         y = predict(net,XTrain,softmax);
         yVal = predict(net,XVal,softmax);
+        %disp('y');
+        %disp(y(:,1)');
         
         %calcolo l'errore di predizione
         if loss == "ce"

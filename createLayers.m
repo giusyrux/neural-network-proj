@@ -22,7 +22,7 @@ function layers = createLayers(params,inputSize,outputSize)
         layers(nLayers).size = [neurons(nLayers-1), outputSize];
 
     end
-    R = [10^(-6) 50];
+    
     %imposto i parametri per ogni strato
     for i=1:nLayers 
         
@@ -31,10 +31,10 @@ function layers = createLayers(params,inputSize,outputSize)
         layers(i).B = zeros(layers(i).size(2),1); %vettore di bias
         layers(i).gradient.W = zeros(layers(i).size(2),layers(i).size(1)); %matrice del gradiente
         layers(i).gradient.B = zeros(layers(i).size(2),1); %matrice gradiente bias
-        layers(i).D = [];
-        for j=1:layers(i).size(2)
-            A=10^(-6)+rand(1,layers(i).size(1))*(50-10^(-6));
-            layers(i).D = cat(1,A,layers(i).D);%rand(neurons(i)*range(R)+min(R));
-        end
+        layers(i).D = ones(layers(i).size(2),layers(i).size(1))*0.1;
+%         for j=1:layers(i).size(2)
+%             A=10^(-6)+rand(1,layers(i).size(1))*(50-10^(-6));
+%             layers(i).D = cat(1,A,layers(i).D);%rand(neurons(i)*range(R)+min(R));
+%         end
     end
 end

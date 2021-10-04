@@ -15,6 +15,6 @@ function output = derivFunction(act,a)
             output(a>0)=1;
             output(a<=0)=0;
         case("hv")
-           output=0;
+           output=zeros(size(a,1),size(a,2));
     end
 end

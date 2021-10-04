@@ -3,17 +3,17 @@
 prompt = "Digitare nome della rete: ";
 params.name = input(prompt,'s');
 
-params.neurons = [64 32 1]; %neuroni per ogni strato
+params.neurons = [16 10]; %neuroni per ogni strato
 
 params.nLayers = size(params.neurons,2); %numero strati
 
-params.act = ["relu" "relu" "identity" ]; %funzioni di attivazione
+params.act = ["relu" "identity" ]; %funzioni di attivazione
 
-params.softmax = 0; % valore booleano per capire se applicare softmax
+params.softmax = 1; % valore booleano per capire se applicare softmax
 
-params.epochs = 200; %numero di epoche
+params.epochs = 50; %numero di epoche
 
-params.cost = "mse"; %funzione di errore
+params.cost = "ce"; %funzione di errore
 
 %divisione DS in train set, test set e validation test
 
