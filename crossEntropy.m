@@ -4,4 +4,5 @@ function err = crossEntropy(y,t)
 %t: label del DS
 
     err = (-sum(sum(t .* log(y),2)));
+
 end

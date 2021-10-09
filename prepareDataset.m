@@ -1,7 +1,6 @@
-function [X,T] = prepareDataset(files)
-%estraggo i dati X e le label T dal DS
+function [x,t] = prepareDataset(files)
+%estraggo i dati x e le label t dal DS
 
-    X = loadMNISTImages(files(1));
-    T = getTargetsFromLabels(loadMNISTLabels(files(2)));
+    x = loadMNISTImages(files(1));
+    t = getTargetsFromLabels(loadMNISTLabels(files(2)));
 end
-

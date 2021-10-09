@@ -1,17 +1,14 @@
 %inizializzo i parametri della rete
 
-prompt = "Digitare nome della rete: ";
-params.name = input(prompt,'s');
+params.neurons = [64 32 16]; %neuroni per ogni strato hidden
 
-params.neurons = [16 10]; %neuroni per ogni strato
+params.nLayers = size(params.neurons,2)+1; %numero strati
 
-params.nLayers = size(params.neurons,2); %numero strati
-
-params.act = ["relu" "identity" ]; %funzioni di attivazione
+params.act = ["relu" "relu" "relu"]; %funzioni di attivazione
 
 params.softmax = 1; % valore booleano per capire se applicare softmax
 
-params.epochs = 50; %numero di epoche
+params.epochs = 100; %numero di epoche
 
 params.cost = "ce"; %funzione di errore
 

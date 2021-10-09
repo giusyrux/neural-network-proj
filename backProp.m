@@ -12,30 +12,32 @@ function layers = backProp(layers,gradOutput,x)
            %con derivata della funzione di errore (gradOutput)
            h = derivFunction(layers(i).act,layers(i).a);
            delta = h .* gradOutput;
-       
        else
            
            %caso hidden
            delta = (layers(i+1).W)' * delta;
            h = derivFunction(layers(i).act,layers(i).a);
            delta = delta .* h;
+          
        end
        
-       layers(i).precGradient = layers(i).gradient.W;
-       % IGNORA -> layers(i).gradient.W = zeros(size(layers(i).gradient.W));
-       %calcolo del gradiente
+       %salvo il gradiente del layer i-esimo prima che cambi
+       layers(i).preGradient = layers(i).gradient.W;
+       
+       %ora calcolo il gradiente
        if i==1
-           p = delta * (x)';
-           layers(i).gradient.W = p;%layers(i).gradient.W + p;
+           
+           gradHidden = delta*(x)'; %per il layer di input uso l'input della rete
        else
-           p = delta * (layers(i-1).z)';
-           layers(i).gradient.W = p;%layers(i).gradient.W + p;
+           
+           gradHidden = delta*(layers(i-1).z)'; %altrimenti uso l'output del layer precedente  
        end
+       layers(i).gradient.W = gradHidden;
         
        %layers(i).gradient.B = layers(i).gradient.B + sum(delta,2);
        %layers(i).gradient.B = layers(i).gradient.B + sum(gradOutput); %calcolo del bias
        % https://towardsdatascience.com/understanding-backpropagation-algorithm-7bb3aa2f95fd
        
-       layers(i).matrixSign = sign(layers(i).precGradient.*layers(i).gradient.W); % calcolo del segno
+       layers(i).matrixSign = sign(layers(i).preGradient.*layers(i).gradient.W); %calcolo del segno
     end
 end

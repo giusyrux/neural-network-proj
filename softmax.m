@@ -1,7 +1,6 @@
-function sm = softmax(z)
+function z = softmax(y)
 %applico softmax all'output della rete
 %y: output della rete
-    %Ignora z = z - max(z,[],2);
-    sm = exp(z)./sum(exp(z),1);
-    %sm = exp(z)/sum(exp(z));
+
+    z = exp(y)./sum(exp(y),1);    
 end

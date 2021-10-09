@@ -1,9 +1,9 @@
-function net = createNet(params,XTrain,TTrain)
+function net = createNet(params,inputSize,outputSize)
 %creo la rete
 %params: parametri della rete
-%XTrain: insieme dei dati di train
-%TTrain: insieme di label di train
+%inputSize: numero di linee d'ingresso
+%outputSize: numero di classi
 
     net.name = params.name;
-    net.layers = createLayers(params,XTrain,TTrain); %inizializzo gli strati della rete
+    net.layers = createLayers(params,inputSize,outputSize); %inizializzo gli strati della rete
 end

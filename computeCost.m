@@ -1,15 +1,16 @@
-function gradOutput = computeCost(y,t,costFunc,hassoftmax)
+function gradOutput = computeCost(y,t,loss,hassoftmax)
 %calcolo della derivata della funzione di errore con/senza softmax
 %y: output della rete
 %t: label del DS
-%softmax: booleano
+%hassoftmax: booleano
 
     if ~hassoftmax
         
-        switch(costFunc)
+        switch(loss)
             
             case("mse")
                 gradOutput = y-t;
+                
             case("ce")
                 n = size(y); %quante volte iterare la sommatoria
                 gradOutput = -sum(t./y, n(2));
@@ -17,7 +18,7 @@ function gradOutput = computeCost(y,t,costFunc,hassoftmax)
         
     else
         
-        z = softmax(y);
-        gradOutput = z-t; %cross-entropy con softmax     
-    end
+        z = softmax(y); %applico softmax
+        gradOutput = z-t; %cross-entropy con softmax  
+   end
 end

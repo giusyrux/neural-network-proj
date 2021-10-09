@@ -1,0 +1,22 @@
+
+parameters;
+
+neuronsChoices = [randi([104 150],1,3);randi([87 103],1,3);randi([61 86],1,3);randi([31 60],1,3);randi([1 30],1,3)];
+act = ["relu" "sigmoide"];
+nHiddenLayers = 5;
+choiceNeurons= 3;
+
+
+for totalLayers=1:nHiddenLayers
+   for actFunction=1:length(act)
+       for numberNeurons=1:choiceNeurons
+           neurons = zeros(1,totalLayers);
+           for layer=1:totalLayers
+                neurons(layer) = neuronsChoices(layer,numberNeurons);
+                params.neurons = neurons;
+                params.nLayers = totalLayers;
+                params.act(layer) = act(actFunction);
+           end
+       end
+   end
+end

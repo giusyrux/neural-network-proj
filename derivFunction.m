@@ -7,14 +7,17 @@ function output = derivFunction(act,a)
         
         case("identity")
             output = ones(size(a,1),size(a,2));
-        case("sigmoid")
+            
+        case("sigmoide")
             a = sigmoide(a);
             output = a.*(1-a);
+            
         case("relu")
             output = a;
-            output(a>0)=1;
-            output(a<=0)=0;
+            output(a>0) = 1;
+            output(a<=0) = 0;
+            
         case("hv")
-           output=zeros(size(a,1),size(a,2));
+           output  =zeros(size(a,1),size(a,2));
     end
 end
