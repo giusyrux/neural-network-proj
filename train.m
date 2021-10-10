@@ -16,9 +16,9 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
     minErr = crossEntropy(yVal,TVal);
     newNet = net;
 
-    epoch=1;
-    for kk = progress(1:epochs), pause(0.1)
-%     for epoch=1:epochs
+    %epoch=1;
+    %for kk = progress(1:epochs), pause(0.1)
+    for epoch=1:epochs
       
         net.layers = forwardProp(net.layers,XTrain); %imposto i parametri
         y = net.layers(size(net.layers,2)).z;
@@ -45,15 +45,15 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
         
         score(epoch) = accuracy(yVal,TVal); %calcolo l'accuracy a ogni epoca
         
-        disp(['Epoca: ' num2str(epoch)]);
-        disp(['Accuracy: ' num2str(score(epoch))]);
-        disp(['Errore di training: ' num2str(err(epoch)) ' Errore di validazione:' num2str(errVal(epoch))]);
+%         disp(['Epoca: ' num2str(epoch)]);
+%         disp(['Accuracy: ' num2str(score(epoch))]);
+%         disp(['Errore di training: ' num2str(err(epoch)) ' Errore di validazione:' num2str(errVal(epoch))]);
         
         if errVal(epoch) < minErr
             
             minErr = errVal(epoch);
             newNet = net; %salvo la rete con errore minimo
         end
-        epoch=epoch+1;
+        %epoch=epoch+1;
     end
 end

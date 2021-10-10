@@ -22,8 +22,8 @@ function layers = backProp(layers,gradOutput,x)
        end
        
        %salvo il gradiente del layer i-esimo prima che cambi
-       layers(i).preGradient = layers(i).gradient.W;
-       
+       layers(i).preGradient.W = layers(i).gradient.W;
+       layers(i).preGradient.B = layers(i).gradient.B;
        %ora calcolo il gradiente
        if i==1
            
@@ -33,11 +33,11 @@ function layers = backProp(layers,gradOutput,x)
            gradHidden = delta*(layers(i-1).z)'; %altrimenti uso l'output del layer precedente  
        end
        layers(i).gradient.W = gradHidden;
-        
-       %layers(i).gradient.B = layers(i).gradient.B + sum(delta,2);
+       layers(i).gradient.B = sum(delta,2);
        %layers(i).gradient.B = layers(i).gradient.B + sum(gradOutput); %calcolo del bias
        % https://towardsdatascience.com/understanding-backpropagation-algorithm-7bb3aa2f95fd
        
-       layers(i).matrixSign = sign(layers(i).preGradient.*layers(i).gradient.W); %calcolo del segno
+       layers(i).matrixSign.W = sign(layers(i).preGradient.W .* layers(i).gradient.W); %calcolo del segno
+       layers(i).matrixSign.B = sign(layers(i).preGradient.B .* layers(i).gradient.B);
     end
 end

@@ -5,7 +5,7 @@ function layers = resilientProp(layers,epoch)
     etaN = 0.5; %0 < etaN < 1 per decrementare delta(i,j)
     
     %range di valori per i delta
-    deltaMax = 10^(-4);
+    deltaMax = 0.00025;
     deltaMin = 10^(-6);
 
     if epoch > 1
@@ -13,17 +13,25 @@ function layers = resilientProp(layers,epoch)
         for i=1:length(layers)
             
             % prodotto positivo
-            layers(i).D(layers(i).matrixSign>0) = layers(i).D(layers(i).matrixSign>0)*etaP;
-            layers(i).D(layers(i).matrixSign>0) = min(layers(i).D(layers(i).matrixSign>0),deltaMax);
+            layers(i).D.W(layers(i).matrixSign.W>0) = layers(i).D.W(layers(i).matrixSign.W>0)*etaP;
+            layers(i).D.W(layers(i).matrixSign.W>0) = min(layers(i).D.W(layers(i).matrixSign.W>0),deltaMax);
 
+            layers(i).D.B(layers(i).matrixSign.B>0) = layers(i).D.B(layers(i).matrixSign.B>0)*etaP;
+            layers(i).D.B(layers(i).matrixSign.B>0) = min(layers(i).D.B(layers(i).matrixSign.B>0),deltaMax);
+            
             % prodotto negativo
-            layers(i).D(layers(i).matrixSign<0) = layers(i).D(layers(i).matrixSign<0)*etaN;
-            layers(i).D(layers(i).matrixSign<0) = max(layers(i).D(layers(i).matrixSign<0),deltaMin);
+            layers(i).D.W(layers(i).matrixSign.W<0) = layers(i).D.W(layers(i).matrixSign.W<0)*etaN;
+            layers(i).D.W(layers(i).matrixSign.W<0) = max(layers(i).D.W(layers(i).matrixSign.W<0),deltaMin);
 
+            layers(i).D.B(layers(i).matrixSign.B<0) = layers(i).D.B(layers(i).matrixSign.B<0)*etaN;
+            layers(i).D.B(layers(i).matrixSign.B<0) = max(layers(i).D.B(layers(i).matrixSign.B<0),deltaMin);
             % aggiornamento dei pesi
-            g = sign(layers(i).gradient.W).*layers(i).D;
+            g = sign(layers(i).gradient.W).*layers(i).D.W;
             layers(i).W = layers(i).W-g;
-            %layers(i).B = layers(i).B + layers(i).gradient.B;
+            % aggiornamento dei bias
+            g = sign(layers(i).gradient.B).*layers(i).D.B;
+            layers(i).B = layers(i).B-g;
+            
         end
     else
         

@@ -36,7 +36,8 @@ function layers = createLayers(params,inputSize,outputSize)
         layers(i).gradient.W = zeros(layers(i).size(2),layers(i).size(1)); %matrice gradiente pesi
         layers(i).gradient.B = zeros(layers(i).size(2),1); %matrice gradiente bias
         
-        layers(i).D = ones(layers(i).size(2),layers(i).size(1))*0.1; %matrice dei delta per la rprop
+        layers(i).D.W = ones(layers(i).size(2),layers(i).size(1))*0.1; %matrice dei delta per la rprop
+        layers(i).D.B = ones(size(layers(i).B)) * 0.1;
         
 %         for j=1:layers(i).size(2)
 %             A=10^(-6)+rand(1,layers(i).size(1))*(50-10^(-6));
