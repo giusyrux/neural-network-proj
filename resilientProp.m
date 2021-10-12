@@ -1,7 +1,6 @@
 function layers = resilientProp(layers,epoch)
 
     etaP = 1.2; %etaP > 1 per incrementare delta(i,j)
-     
     etaN = 0.5; %0 < etaN < 1 per decrementare delta(i,j)
     
     %range di valori per i delta
@@ -25,16 +24,15 @@ function layers = resilientProp(layers,epoch)
 
             layers(i).D.B(layers(i).matrixSign.B<0) = layers(i).D.B(layers(i).matrixSign.B<0)*etaN;
             layers(i).D.B(layers(i).matrixSign.B<0) = max(layers(i).D.B(layers(i).matrixSign.B<0),deltaMin);
+
             % aggiornamento dei pesi
             g = sign(layers(i).gradient.W).*layers(i).D.W;
             layers(i).W = layers(i).W-g;
+
             % aggiornamento dei bias
             g = sign(layers(i).gradient.B).*layers(i).D.B;
             layers(i).B = layers(i).B-g;
             
         end
-    else
-        
-        layers = classicGradientDescent(layers); %aggiorno i parametri per la prima epoca
     end
 end
