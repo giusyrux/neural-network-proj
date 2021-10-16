@@ -4,9 +4,9 @@ function [newNet, err, errVal, score] = main(params)
     [X,T] = prepareDataset(files);
 
     %prelevo i dati in modo random
-    ind = randperm(size(X,2));
-    X = X(:,ind);
-    T = T(:,ind);
+%     ind = randperm(size(X,2));
+%     X = X(:,ind);
+%     T = T(:,ind);
 
     %divido in train, test e validation set
     percentTrain = size(X,2)*params.percentTrain;

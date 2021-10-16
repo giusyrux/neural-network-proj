@@ -8,7 +8,7 @@ params.act = ["relu" "relu" "relu"]; %funzioni di attivazione
 
 params.softmax = 1; % valore booleano per capire se applicare softmax
 
-params.epochs = 10; %numero di epoche
+params.epochs = 50; %numero di epoche
 
 params.cost = "ce"; %funzione di errore
 

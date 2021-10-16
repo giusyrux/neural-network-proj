@@ -3,10 +3,10 @@ parameters;
 neuronsChoices = [randi([104 150],1,3);randi([87 103],1,3);randi([61 86],1,3);randi([31 60],1,3);randi([1 30],1,3)];
 disp(num2str(neuronsChoices));
 act = ["relu" "sigmoide"];
-nHiddenLayers = 3;
+nHiddenLayers = 5;
 choiceNeurons= 3;
-bestParams = [];
 oldScore = 0;
+bestParams = struct;
 
 for totalLayers=1:nHiddenLayers
    for actFunction=1:length(act)
@@ -21,16 +21,28 @@ for totalLayers=1:nHiddenLayers
            end
            [newNet, err, errVal, score] = main(params);
            if oldScore < score
-               bestParams(1) = totalLayers;
-               bestParams(2) = actFunction;
-               bestParams(3) = numberNeurons;
+               bestParams.layers = totalLayers;
+               bestParams.act = act(actFunction);
+               bestParams.choice = neuronsChoices(:,numberNeurons);
            end
-           % creazione file dei plot
+          % creazione file dei plot
+           figure('visible','off');
+           hold on;
+           plot((1:1:params.epochs),err,'-*',(1:1:params.epochs),errVal,'-o');
+           title(sprintf("Grafico con %d strati, %s e nodi interni %s",totalLayers,act(actFunction),num2str(neuronsChoices(1:totalLayers,numberNeurons)')));
+           xlabel('Epochs');
+           ylabel('Error');
+           %legend({'errore di training','errore di validazione'},'Location','northeast');
+           set(gca, 'XTick', (0:10:params.epochs));
+           set(gca, 'xlim', [0 params.epochs]);
+           fileName = totalLayers + "_" + actFunction + "_" + numberNeurons + ".jpg";
+           directoryName = 'C:\Users\Giusy\Desktop\UNI\I anno\Esami annuali\Machine Learning\Deep Learning\Progetto\neural-network\images\';
+           saveas(gcf,directoryName + fileName);
+           hold off;
        end
    end
    
 end
-disp(num2str(bestParams));
 % figure;
 % figura = plot(X,Y);
 % set(gca, 'XTick', [0 5])

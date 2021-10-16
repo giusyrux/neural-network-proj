@@ -27,7 +27,7 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
         
         net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
         net.layers = resilientProp(net.layers,epoch); %aggiorno i parametri
-        
+        %net.layers = classicGradientDescent(net.layers); 
         %predico l'output
         y = predict(net,XTrain,hassoftmax);
         yVal = predict(net,XVal,hassoftmax);
@@ -48,7 +48,7 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
 %         disp(['Epoca: ' num2str(epoch)]);
 %         disp(['Accuracy: ' num2str(score(epoch))]);
 %         disp(['Errore di training: ' num2str(err(epoch)) ' Errore di validazione:' num2str(errVal(epoch))]);
-        
+%         
         if errVal(epoch) < minErr
             
             minErr = errVal(epoch);

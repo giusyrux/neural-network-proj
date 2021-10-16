@@ -27,10 +27,10 @@ function layers = backProp(layers,gradOutput,x)
        %ora calcolo il gradiente
        if i==1
            
-           layers(i).gradient.W  = delta*(x)'; %per il layer di input uso l'input della rete
+           layers(i).gradient.W = delta*(x)'; %per il layer di input uso l'input della rete
        else
            
-           layers(i).gradient.W  = delta*(layers(i-1).z)'; %altrimenti uso l'output del layer precedente  
+           layers(i).gradient.W = delta*(layers(i-1).z)'; %altrimenti uso l'output del layer precedente  
        end
        layers(i).gradient.B = sum(delta,2);
 
