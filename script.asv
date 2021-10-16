@@ -21,10 +21,10 @@ for totalLayers=1:nHiddenLayers
            end
            [newNet, err, errVal, score] = main(params);
            if oldScore < score
-               oldScore = score;
                bestParams.layers = totalLayers;
                bestParams.act = act(actFunction);
                bestParams.choice = neuronsChoices(:,numberNeurons);
+               
            end
           % creazione file dei plot
            figure('visible','off');
