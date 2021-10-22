@@ -1,13 +1,13 @@
 parameters;
 
 neuronsChoices = [randi([104 150],1,3);randi([87 103],1,3);randi([61 86],1,3);randi([31 60],1,3);randi([1 30],1,3)];
+
 disp(num2str(neuronsChoices));
 act = ["relu" "sigmoide"];
 nHiddenLayers = 5;
 choiceNeurons= 3;
 oldScore = 0;
-bestParams = struct;
-
+currentPath = convertCharsToStrings(pwd);
 for totalLayers=1:nHiddenLayers
    for actFunction=1:length(act)
        for numberNeurons=1:choiceNeurons
@@ -33,12 +33,10 @@ for totalLayers=1:nHiddenLayers
            title(sprintf("Grafico con %d strati, %s e nodi interni %s",totalLayers,act(actFunction),num2str(neuronsChoices(1:totalLayers,numberNeurons)')));
            xlabel('Epochs');
            ylabel('Error');
-           %legend({'errore di training','errore di validazione'},'Location','northeast');
            set(gca, 'XTick', (0:10:params.epochs));
            set(gca, 'xlim', [0 params.epochs]);
            fileName = totalLayers + "_" + actFunction + "_" + numberNeurons + ".jpg";
-           %directoryName = 'C:\Users\Giusy\Desktop\UNI\I anno\Esami annuali\Machine Learning\Deep Learning\Progetto\neural-network\images\';
-           directoryName = 'C:\Users\davso\Desktop\Università\Magistrale Primo Anno\MLEA\Progetto\neural-network\images\';
+           directoryName = currentPath + '\images\';
            saveas(gcf,directoryName + fileName);
            hold off;
        end
@@ -46,13 +44,3 @@ for totalLayers=1:nHiddenLayers
 end
 fprintf("Migliori parametri: %d strati, %s e nodi interni %s",bestParams.layers, bestParams.act, num2str((bestParams.choice))');
 
-% figure;
-% figura = plot(X,Y);
-% set(gca, 'XTick', [0 5])
-% set(gca, 'XTick', [0 1 2 3 4 5])
-% set(gca, 'xlim', [0 5])
-% saveas(gcf,'ehsapessi.jpg')
-% title('Line Plot of Sine and Cosine Between -2\pi and 2\pi')
-% xlabel('-2\pi < x < 2\pi') 
-% ylabel('Sine and Cosine Values')
-% legend({'y = sin(x)','y = cos(x)'},'Location','southwest')

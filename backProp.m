@@ -1,7 +1,7 @@
-function layers = backProp(layers,gradOutput,x)
+function layers = backProp(layers,gradErr,x)
 %back propagation per il calcolo del gradiente
 %layers: struct contenente i vari strati della rete
-%gradOutput: derivata della funzione di errore relativa all'output della rete
+%gradErr: derivata della funzione di errore relativa all'output della rete
 %x: input della rete
 
     for i=length(layers):-1:1
@@ -9,9 +9,9 @@ function layers = backProp(layers,gradOutput,x)
        if i == length(layers) 
            
            %caso output: derivata funzione identità e prodotto element-wise
-           %con derivata della funzione di errore (gradOutput)
+           %con derivata della funzione di errore (gradErr)
            h = derivFunction(layers(i).act,layers(i).a);
-           delta = h .* gradOutput;
+           delta = h .* gradErr;
        else
            
            %caso hidden

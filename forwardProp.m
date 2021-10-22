@@ -16,10 +16,7 @@ function layers = forwardProp(layers,input)
        if i < length(layers)
            
            switch (act)
-
-               case "identity"
-                   z = identity(a);
-                   
+               
                case "sigmoide"
                    z = sigmoide(a);
                    

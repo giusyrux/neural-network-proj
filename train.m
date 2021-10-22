@@ -16,18 +16,16 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
     minErr = crossEntropy(yVal,TVal);
     newNet = net;
 
-    %epoch=1;
-    %for kk = progress(1:epochs), pause(0.1)
     for epoch=1:epochs
       
         net.layers = forwardProp(net.layers,XTrain); %imposto i parametri
         y = net.layers(size(net.layers,2)).z;
         
-        gradOutput = computeCost(y,TTrain,loss,hassoftmax); %calcolo derivata errore
+        gradErr = computeGradErr(y,TTrain,loss,hassoftmax); %calcolo derivata errore
         
-        net.layers = backProp(net.layers,gradOutput,XTrain); %calcolo gradiente
+        net.layers = backProp(net.layers,gradErr,XTrain); %calcolo gradiente
         net.layers = resilientProp(net.layers,epoch); %aggiorno i parametri
-        %net.layers = classicGradientDescent(net.layers); 
+        
         %predico l'output
         y = predict(net,XTrain,hassoftmax);
         yVal = predict(net,XVal,hassoftmax);
@@ -54,6 +52,6 @@ function [err, newNet, errVal] = train(net,XTrain,TTrain,XVal,TVal,loss,epochs,h
             minErr = errVal(epoch);
             newNet = net; %salvo la rete con errore minimo
         end
-        %epoch=epoch+1;
+
     end
 end

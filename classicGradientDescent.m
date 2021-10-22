@@ -8,6 +8,7 @@ function layers = classicGradientDescent(layers)
         
         h = eta*layers(i).gradient.W;
         layers(i).W = layers(i).W - h;
-        %layers(i).B = layers(i).B - eta*layers(i).gradient.B;
+        h = eta*layers(i).gradient.B;
+        layers(i).B = layers(i).B - h;
     end
 end

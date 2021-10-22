@@ -1,7 +1,7 @@
 function layers = resilientProp(layers,epoch)
 
     etaP = 1.2; %etaP > 1 per incrementare delta(i,j)
-     
+    
     etaN = 0.5; %0 < etaN < 1 per decrementare delta(i,j)
     
     %range di valori per i delta
@@ -34,4 +34,4 @@ function layers = resilientProp(layers,epoch)
             
         end
     end
-    end
+end

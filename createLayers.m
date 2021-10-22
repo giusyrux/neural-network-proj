@@ -24,25 +24,23 @@ function layers = createLayers(params,inputSize,outputSize)
     end
     
     %imposto i parametri per ogni strato
+    sigma = 0.1;
+    deltaZero = 0.1;
     for i=1:nLayers 
         
         if i<nLayers
             layers(i).act = params.act(i); %funzione di attivazione per ogni strato
         end
         
-        layers(i).W = randn(layers(i).size(2),layers(i).size(1))*0.1; %matrice pesi
+        layers(i).W = randn(layers(i).size(2),layers(i).size(1))*sigma; %matrice pesi
         layers(i).B = zeros(layers(i).size(2),1); %vettore di bias
         
         layers(i).gradient.W = zeros(layers(i).size(2),layers(i).size(1)); %matrice gradiente pesi
         layers(i).gradient.B = zeros(layers(i).size(2),1); %matrice gradiente bias
         
-        layers(i).D.W = ones(layers(i).size(2),layers(i).size(1))*0.1; %matrice dei delta per la rprop
-        layers(i).D.B = ones(size(layers(i).B)) * 0.1;
+        layers(i).D.W = ones(layers(i).size(2),layers(i).size(1))* deltaZero; %matrice dei delta per la rprop
+        layers(i).D.B = ones(size(layers(i).B)) * deltaZero;
         
-%         for j=1:layers(i).size(2)
-%             A=10^(-6)+rand(1,layers(i).size(1))*(50-10^(-6));
-%             layers(i).D = cat(1,A,layers(i).D);%rand(neurons(i)*range(R)+min(R));
-%         end
     end
     
     layers(nLayers).act = "identity"; % funzione di attivazione per l'ultimo strato
