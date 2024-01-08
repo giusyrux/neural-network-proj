@@ -13,7 +13,20 @@ This function is invocated in `createNet.m` returning the network's layers. Beyo
 The update steps (which will be needed to update the weights with RProp) are initialized randomly by multiplying by a deltaZero=0.1 as suggested [here](https://paginas.fe.up.pt/~ee02162/dissertacao/RPROP%20paper.pdf).
 
 ### Error functions
-The error functions considered are Sum of Squares and Cross Entropy
+The error functions considered are the Sum of Squares and Cross Entropy.
+
+### RProp parameters
+For the increment and decrement of updates steps, as suggested in the [paper](https://paginas.fe.up.pt/~ee02162/dissertacao/RPROP%20paper.pdf), two hyperparameters are set
+:
+```
+etaP = 1.2; % etaP > 1 to increment the update step delta(i,j)
+etaN = 0.5; % 0 < etaN < 1 to decrement the update step delta(i,j)
+deltaMax = 0.00025;
+deltaMin = 10^(-6);
+```
+
+## Train
+![image](https://cdn.discordapp.com/attachments/1080216725599027364/1193947270735995051/schema.png?ex=65ae910b&is=659c1c0b&hm=9a96cbebb60d7d0d43f78710e48ee2ee1ac5ecb9fca2ea51c87f3bff5844bd5c&)
 
 ### Authors
 [Giuseppina Russo](https://github.com/giusyrux)
